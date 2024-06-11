@@ -81,19 +81,17 @@ router.delete('/:placeId', async (req, res) => {
     }
 })
 
+
+
 router.post('/:placeId/comments', async (req, res) => {
     const placeId = Number(req.params.placeId)
-
     req.body.rant = req.body.rant ? true : false
-
     const place = await Place.findOne({
         where: { placeId: placeId }
     })
-
     if (!place) {
         res.status(404).json({ message: `Could not find place with id "${placeId}"` })
     }
-
     const author = await User.findOne({
         where: { userId: req.body.authorId }
     })
